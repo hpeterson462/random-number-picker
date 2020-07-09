@@ -1,21 +1,21 @@
 // import functions and grab DOM elements
-import { isGuessCorrect, isGuessLow } from "./cookieUtils.js";
-import { addElement, removeElement, updateElementText } from "./cookieDOM.js";
+import { isGuessCorrect, isGuessLow } from './cookieUtils.js';
+import { addElement, removeElement, updateElementText } from './cookieDOM.js';
 
-const userGuessElement = document.querySelector("#user-guess"),
-  userButtonElement = document.querySelector("#guess-button"),
-  userHintElement = document.querySelector("#hint-output"),
-  triesRemainingElement = document.querySelector("#tries-remaining"),
-  cookiePicture = document.querySelector("#cookie-picture"),
-  curtainBox = document.querySelector("#curtain-picture"),
-  resetButton = document.querySelector("#reset-screen");
+const userGuessElement = document.querySelector('#user-guess'),
+  userButtonElement = document.querySelector('#guess-button'),
+  userHintElement = document.querySelector('#hint-output'),
+  triesRemainingElement = document.querySelector('#tries-remaining'),
+  cookiePicture = document.querySelector('#cookie-picture'),
+  curtainBox = document.querySelector('#curtain-picture'),
+  resetButton = document.querySelector('#reset-screen');
 
 // initialize state
 let guessesRemaining = 4,
   computerNumber = Math.ceil(Math.random() * 20);
 
 // set event listeners to update state and DOM
-userButtonElement.addEventListener("click", () => {
+userButtonElement.addEventListener('click', () => {
   if (guessesRemaining > 0) {
     const userGuess = Number(userGuessElement.value),
       correctGuess = isGuessCorrect(computerNumber, userGuess);
@@ -29,18 +29,18 @@ userButtonElement.addEventListener("click", () => {
       checkForLoss();
     }
     //clear input
-    userGuessElement.value = "";
+    userGuessElement.value = '';
   }
 });
 
-resetButton.addEventListener("click", () => {
+resetButton.addEventListener('click', () => {
   //hide reset screen
-  removeElement("reset-screen");
+  removeElement('reset-screen');
 
   resetGame();
 });
 
-cookiePicture.addEventListener("click", () => {
+cookiePicture.addEventListener('click', () => {
   resetGame();
 });
 
@@ -51,15 +51,15 @@ function userGuessWrong(userGuess) {
   giveUserHint(lowGuess);
 
   //update tries remaining
-  removeElement("cookie" + guessesRemaining);
+  removeElement('cookie' + guessesRemaining);
   decrementTriesRemaining();
 }
 
 function giveUserHint(lowGuess) {
   if (lowGuess) {
-    updateElementText(userHintElement, "Your guess was too low \n");
+    updateElementText(userHintElement, 'Your guess was too low \n');
   } else {
-    updateElementText(userHintElement, "Your guess was too high \n");
+    updateElementText(userHintElement, 'Your guess was too high \n');
   }
 }
 
@@ -71,12 +71,12 @@ function decrementTriesRemaining() {
   if (guessesRemaining === 1) {
     updateElementText(
       triesRemainingElement,
-      "You have one last try for the cookies"
+      'You have one last try for the cookies'
     );
   } else {
     updateElementText(
       triesRemainingElement,
-      "You have " + guessesRemaining + " tries left"
+      'You have ' + guessesRemaining + ' tries left'
     );
   }
 }
@@ -88,21 +88,21 @@ function userGuessCorrect(userGuess) {
   //update message to user
   updateElementText(
     userHintElement,
-    "Well done! Please enjoy these " + userGuess + " cookies!"
+    'Well done! Please enjoy these ' + userGuess + ' cookies!'
   );
-  updateElementText(triesRemainingElement, "");
+  updateElementText(triesRemainingElement, '');
 
   //animate curtain
   animateCurtain(userGuess);
 }
 
 function animateCurtain() {
-  curtainBox.classList.add("animate-curtain");
+  curtainBox.classList.add('animate-curtain');
 }
 
 function setCookiePicture() {
   cookiePicture.style.backgroundImage =
-    "url('./assets/" + computerNumber + "Cookies.jpg')";
+    'url('./ assets / ' + computerNumber + 'Cookies.jpg')';
 }
 
 function checkForLoss() {
